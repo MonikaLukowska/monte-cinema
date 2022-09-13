@@ -6,8 +6,8 @@ RSpec.describe Hall, type: :model do
   end
 
   context 'when creating new hall' do
-    it { is_expected.to validate_presence_of(:number) }
+    it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:capacity) }
-    it { is_expected.to validate_uniqueness_of(:number) }
+    it { is_expected.to validate_uniqueness_of(:name) }
   end
 end

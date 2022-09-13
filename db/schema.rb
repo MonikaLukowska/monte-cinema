@@ -10,16 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_12_190640) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_12_134057) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "halls", force: :cascade do |t|
-    t.integer "number", null: false
+    t.string "name", null: false
     t.integer "capacity", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["number"], name: "index_halls_on_number", unique: true
+    t.index ["name"], name: "index_halls_on_name", unique: true
   end
 
 end

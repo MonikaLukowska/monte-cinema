@@ -1,4 +1,4 @@
 class Hall < ApplicationRecord
-  validates :number, :capacity, presence: true
-  validates :number, uniqueness: true
+  validates :name, :capacity, presence: true
+  validates :name, uniqueness: true
 end

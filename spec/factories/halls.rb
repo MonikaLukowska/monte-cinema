@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :hall do
-    sequence(:number) { |n| n }
+    sequence(:name) { |n| "Hall #{n} name" }
     capacity { 100 }
   end
 end
