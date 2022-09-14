@@ -1,0 +1,18 @@
+<h1 class="mb-5 text-center" >Movies</h1>
+<ul class="px-0 d-flex flex-wrap justify-space-between">
+  <% movies.each do |movie| %>
+  <li class="d-block col-md-3 mb-2 px-2" test-id="movie_<%= movie.id %>">
+    <div class="card ">
+      <div class="card-header"> <%= movie.title %></div>
+      <div class="card-body">
+        <p class="card-text"><span class="font-weight-bold">Length: </span><%= movie.length %></p>
+        <div class="d-flex">
+          <%= link_to 'Edit', edit_movie_path(movie), class: "btn btn-warning me-1 "%> |
+          <%= button_to 'Remove', movie, method: :delete, form: { data: { turbo_confirm: 'Are you sure?' } }, class: "btn btn-danger ms-1"%>
+        </div>
+      </div>
+    </div>
+  </li>
+  <% end %>
+</ul>
+<%= link_to 'New movie', new_movie_path, class: 'btn btn-primary mb-5 mt-3' %>
