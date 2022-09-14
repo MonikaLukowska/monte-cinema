@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+ #frozen_string_literal: true
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+ resources :movies, except: [:show]
+
+ root to: 'movies#index'
 end
