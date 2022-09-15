@@ -5,7 +5,7 @@ RSpec.describe Movie, type: :model do
     create(:movie)
   end
 
-  context 'when creating new hall' do
+  context 'when creating new movie' do
     it { is_expected.to validate_presence_of(:title) }
     it { is_expected.to validate_presence_of(:length) }
   end
