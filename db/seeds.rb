@@ -8,3 +8,7 @@
 [200, 100, 100, 100, 100, 50, 50, 50, 50, 20].each_with_index do |capacity, index|
   Hall.where(capacity: capacity, name: "Hall #{index+1}").first_or_create!
 end
+
+10.times do
+  Movie.where(title: Faker::Movie.title, length: [100, 120, 90].sample).first_or_create!
+end
