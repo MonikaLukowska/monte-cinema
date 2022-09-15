@@ -1,7 +1,7 @@
 <h1 class="mb-5 text-center" >Movies</h1>
 <ul class="px-0 d-flex flex-wrap justify-space-between">
   <% movies.each do |movie| %>
-  <li class="d-block col-md-3 mb-2 px-2" test-id="movie_<%= movie.id %>">
+  <li class="d-block col-12 col-lg-6 col-xl-3 mb-2 px-2" test-id="movie_<%= movie.id %>">
     <div class="card ">
       <div class="card-header"> <%= movie.title %></div>
       <div class="card-body">

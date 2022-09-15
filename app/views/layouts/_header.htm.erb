@@ -1,0 +1,24 @@
+<header>
+  <nav class="navbar ja navbar-expand-lg navbar-light bg-light w-100">
+    <div class="w-100 container d-flex flex-column">
+      <div class="row w-100 align-items-center justify-content-between">
+        <div class="col">
+          <h1>
+            <%= link_to 'Monte Cinema', root_path, class: 'navbar-brand' %>
+          </h1>
+        </div>
+        <div class="col d-flex justify-content-end">
+          <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          </div>
+          <div class="collapse navbar-collapse w-auto ms-auto" id="navbarSupportedContent">
+            <ul class="navbar-nav mb-2 ms-auto mb-lg-0">
+              <li><%= link_to "Movies", movies_path, class: 'nav-link btn btn-link text-dark'  %></li>
+            </ul>
+          </div>
+        </div> 
+      </div>
+    </div>
+  </nav>
+</header>
