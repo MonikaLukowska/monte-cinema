@@ -30,4 +30,11 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  movies:
+    create:
+      notice: Movie was successfully added
+    update:
+      notice: Movie was successfully updated
+    destroy:
+      notice: Movie was successfully removed
+    

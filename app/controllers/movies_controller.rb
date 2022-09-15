@@ -8,14 +8,14 @@ class MoviesController < ApplicationController
   end
 
   def edit
-    render :edit, locals: { movie: movie }
+    render :edit, locals: { movie: }
   end
 
   def create
     record = Movie.new(movie_params)
 
     if record.save
-      redirect_to movies_path, notice: 'Movie was successfully added'
+      redirect_to movies_path, notice: t('.notice')
     else
       render :new, locals: { movie: record }
     end
@@ -23,7 +23,7 @@ class MoviesController < ApplicationController
 
   def update
     if movie.update(movie_params)
-      redirect_to movies_path, notice: 'Movie was successfully updated'
+      redirect_to movies_path, notice: t('.notice')
     else
       render :edit
     end
@@ -31,7 +31,7 @@ class MoviesController < ApplicationController
 
   def destroy
     movie.destroy
-    redirect_to movies_path, notice: 'Movie was successfully removed'
+    redirect_to movies_path, notice: t('.notice')
   end
 
   private
