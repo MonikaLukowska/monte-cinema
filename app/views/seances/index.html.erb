@@ -1,0 +1,22 @@
+<h1 class="mb-5 text-center" >Seances</h1>
+<%= create_date_links %>
+<ul class="px-0 d-flex flex-wrap justify-space-between">
+  <% seances.each_pair do |movie, values| %>
+    <li class="d-block col-12 col-lg-6 col-xl-3 mb-2 px-2">
+          <div class="card ">
+            <div class="card-header"><%= movie %> </div>
+            <div class="card-body">
+              <p class="card-text">
+              <ul class="d-flex px-0">
+                <% seances[movie].each do |seance| %>
+                  <li test-id="seance_<%= seance.id %>" class="d-block">
+                    <%= link_to seance.start_time.strftime('%k:%M'), seance_path(seance), class: 'me-2' %>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </li>
+  <% end %>
+</ul>
+<%= link_to 'New seance', new_seance_path, class: 'btn btn-primary mb-5 mt-3' %>
