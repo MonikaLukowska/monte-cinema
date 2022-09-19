@@ -6,7 +6,7 @@ RSpec.describe 'Movie management', type: :system do
   let(:another_movie) { build(:movie) }
 
   before do
-    visit root_path
+    visit movies_path
   end
 
   context 'when editing movie' do

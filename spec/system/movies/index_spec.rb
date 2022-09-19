@@ -5,7 +5,7 @@ RSpec.describe 'Movie index', type: :system do
   let!(:another_movie) { create(:movie) }
 
   before do
-    visit root_path
+    visit movies_path
   end
 
   context 'when user is on index page' do
