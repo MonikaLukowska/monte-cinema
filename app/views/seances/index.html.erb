@@ -10,7 +10,7 @@
               <ul class="d-flex px-0">
                 <% seances[movie].each do |seance| %>
                   <li test-id="seance_<%= seance.id %>" class="d-block">
-                    <%= link_to seance.start_time.strftime('%k:%M'), seance_path(seance), class: 'me-2' %>
+                    <%= link_to seance.start_time.strftime('%H:%M'), seance_path(seance), class: 'me-2' %>
                   </li>
                 <% end %>
               </ul>

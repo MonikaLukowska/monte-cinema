@@ -4,7 +4,7 @@
     <div class="card-body">
       <p class="card-text"><span class="font-weight-bold">Length: </span><%= seance.movie_length %></p>
       <p class="card-text"><span class="font-weight-bold">Date: </span><%= seance.start_time.strftime('%m.%d.%Y') %></p>
-      <p class="card-text"><span class="font-weight-bold">Time: </span><%= seance.start_time.strftime('%k:%M') %></p>
+      <p class="card-text"><span class="font-weight-bold">Time: </span><%= seance.start_time.strftime('%H:%M') %></p>
       <p class="card-text"><span class="font-weight-bold">Hall: </span><%= seance.hall.name %></p>
       <div class="d-flex">
         <%= link_to 'Edit', edit_seance_path(seance), class: "btn btn-warning me-1 "%> |

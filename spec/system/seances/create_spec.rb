@@ -15,7 +15,7 @@ RSpec.describe 'Seance management', type: :system do
       fill_in('Price', with: 15)
       click_button('Create Seance')
       expect(page).to have_content('Seance was successfully added')
-      expect(page).to have_content(seance.start_time.strftime('%k:%M'))
+      expect(page).to have_content(seance.start_time.strftime('%H:%M'))
     end
 
     it 'shows an error when price is not present' do
@@ -31,7 +31,7 @@ RSpec.describe 'Seance management', type: :system do
       select(date.strftime('%Y'), from: 'seance[start_time(1i)]')
       select(date.strftime('%B'), from: 'seance[start_time(2i)]')
       select(date.strftime('%d'), from: 'seance[start_time(3i)]')
-      select(date.strftime('%k'), from: 'seance[start_time(4i)]')
+      select(date.strftime('%H'), from: 'seance[start_time(4i)]')
       select(date.strftime('%M'), from: 'seance[start_time(5i)]')
       fill_in('Price', with: 15)
       click_button('Create Seance')

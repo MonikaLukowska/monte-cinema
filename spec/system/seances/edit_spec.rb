@@ -10,7 +10,7 @@ RSpec.describe 'Seance management', type: :system do
 
   context 'when editing seance' do
     it 'can edit a seance' do
-      click_link(seance.start_time.strftime('%k:%M'))
+      click_link(seance.start_time.strftime('%H:%M'))
       click_link('Edit')
       select(hall.name, from: 'Hall')
       click_button('Update Seance')
