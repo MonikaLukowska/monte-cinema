@@ -31,7 +31,7 @@ class SeancesController < ApplicationController
     if seance.update(seance_params)
       redirect_to seance, notice: t('.notice')
     else
-      render :edit
+      render :edit, locals: { seance: }
     end
   end
 
