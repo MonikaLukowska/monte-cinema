@@ -1,7 +1,6 @@
 class SeancesController < ApplicationController
   def index
-    seances = Seance.includes(:movie).filtered_by_day(date).group_by(&:movie_title)
-    # seances = Seance.includes(:movie).group_by(&:movie_title)
+    seances = Seance.includes(:movie).filtered_by_day(date).group_by(&:movie)
 
     render :index, locals: { seances: }
   end
