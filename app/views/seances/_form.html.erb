@@ -1,0 +1,31 @@
+<%= form_with(model: seance, local: true, data:{ turbo: false }) do |form| %>
+  <% if seance.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(seance.errors.count, "error") %> Prohibited this seance from being saved:</h2>
+      <ul>
+        <% seance.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field mb-3">
+    <%= form.label :movie_id %>
+    <%= form.collection_select :movie_id, Movie.order(:title), :id, :title, { indlude_blank: true }, { class: 'form-select' } %>
+  </div>
+  <div class="field mb-3">
+    <%= form.label :hall_id %>
+    <%= form.collection_select :hall_id, Hall.order(:name), :id, :name, { indlude_blank: true }, { class: 'form-select' } %>
+  </div>
+  <div class="field mb-3">
+    <%= form.label :start_time %>
+    <%= form.datetime_select :start_time  %>
+  </div>
+  <div class="field mb-3">
+    <%= form.label :price %>
+    <%= form.number_field :price, class: 'form-control' %>
+  </div>
+  <div class="actions">
+    <%= form.submit  class: 'btn btn-primary mt-2 mb-2' %>
+  </div>
+<% end %>

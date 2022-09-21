@@ -4,7 +4,7 @@ RSpec.describe 'Movie management', type: :system, js: true do
   let!(:movie) { create(:movie) }
 
   before do
-    visit root_path
+    visit movies_path
   end
 
   context 'when destroying movies' do

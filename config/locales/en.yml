@@ -37,4 +37,11 @@ en:
       notice: Movie was successfully updated
     destroy:
       notice: Movie was successfully removed
+  seances:
+    create:
+      notice: Seance was successfully added
+    update:
+      notice: Seance was successfully updated
+    destroy:
+      notice: Seance was successfully removed
     
