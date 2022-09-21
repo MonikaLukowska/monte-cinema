@@ -25,7 +25,7 @@ class MoviesController < ApplicationController
     if movie.update(movie_params)
       redirect_to movies_path, notice: t('.notice')
     else
-      render :edit
+      render :edit, locals: { movie: }
     end
   end
 
