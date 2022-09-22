@@ -8,11 +8,11 @@ RSpec.describe Ticket, type: :model do
   end
 
   describe 'validations' do
-    it 'is validates seat availability' do
+    it 'is invalid when chosen seat is reserved' do
       reservation = create(:reservation)
       create(:ticket, reservation_id: reservation.id, seat: 1)
       ticket = build(:ticket, reservation_id: reservation.id, seat: 1)
-      expect(ticket.errors[:seat]).to include('1 is not available')
+      expect(ticket).not_to be_valid
     end
 
     it { is_expected.to validate_presence_of(:seat) }
