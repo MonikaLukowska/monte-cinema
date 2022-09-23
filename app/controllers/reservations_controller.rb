@@ -4,12 +4,12 @@ class ReservationsController < ApplicationController
   end
 
   def create
-    ticket_reservation = CreateReservation.new(params:)
-    if ticket_reservation.call
+    reservation = CreateReservation.new(params:)
+    if reservation.call
       redirect_to seances_path, notice: t('.notice')
     else
       redirect_back fallback_location: new_seance_reservation_path(seance),
-                    alert: ticket_reservation.errors.join
+                    alert: reservation.errors.join
     end
   end
 
