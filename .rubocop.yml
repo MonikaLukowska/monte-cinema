@@ -20,6 +20,9 @@ Layout/LineLength:
   Exclude:
     - config/**/*
 
+Style/HashSyntax: 
+ EnforcedShorthandSyntax: either
+
 Style/FrozenStringLiteralComment:
   Enabled: false
 

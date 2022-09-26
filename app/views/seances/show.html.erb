@@ -10,6 +10,9 @@
         <%= link_to 'Edit', edit_seance_path(seance), class: "btn btn-warning me-1 "%> |
         <%= button_to 'Remove', seance, method: :delete, form: { data: { turbo_confirm: 'Are you sure?' } }, class: "btn btn-danger ms-1"%>
       </div>
+      <div class="mt-2">
+        <%= link_to 'Book tickets', new_seance_reservation_path(seance), class: "btn btn-primary" %>
+      </div>
     </div>
   </div>
 </div>

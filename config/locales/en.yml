@@ -44,4 +44,7 @@ en:
       notice: Seance was successfully updated
     destroy:
       notice: Seance was successfully removed
+  reservations:
+    create:
+      notice: You successfully reserved seats
     
