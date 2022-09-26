@@ -4,7 +4,7 @@ Rails.application.routes.draw do
  
  resources :movies, except: [:show]
  resources :seances do
-  resources :reservations, only: %i[new create]
+  resources :reservations, except: %i[destroy]
  end
  
  root to: 'seances#index'

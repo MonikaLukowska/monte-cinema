@@ -13,9 +13,18 @@ class ReservationsController < ApplicationController
     end
   end
 
+  def update
+    Reservations::UseCases::UpdateReservation.new(reservation, params[:status]).call
+    redirect_to reservation_path(reservation)
+  end
+
   private
 
   def seance
     @seance = Seance.find(params[:seance_id])
+  end
+
+  def reservation
+    @reservation ||= Reservation.find(params[:id])
   end
 end
