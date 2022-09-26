@@ -4,7 +4,7 @@ class ReservationsController < ApplicationController
   end
 
   def create
-    reservation = CreateReservation.new(params:)
+    reservation = CreateReservation.new(params[:email], params[:seance_id], params[:seats])
     if reservation.call
       redirect_to seances_path, notice: t('.notice')
     else

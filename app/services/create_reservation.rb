@@ -1,8 +1,10 @@
 class CreateReservation
-  attr_reader :params, :errors
+  attr_reader :errors
 
-  def initialize(params:)
-    @params = params
+  def initialize(email, seance_id, seats)
+    @email = email
+    @seance_id = seance_id
+    @seats = seats
     @errors = []
   end
 
@@ -12,7 +14,7 @@ class CreateReservation
     ActiveRecord::Base.transaction do
       reservation.tap do |reservation|
         seats.each do |seat|
-          Ticket.create!(reservation_id: reservation.id, seat:)
+          Ticket.create!(reservation_id: reservation.id, seat: seat)
         end
       end
     end
@@ -24,21 +26,19 @@ class CreateReservation
 
   private
 
+  attr_reader :email, :seance_id, :seats
+
   def reservation
     Reservation.create!(
-      email: params[:email],
-      seance_id: params[:seance_id]
+      email: email,
+      seance_id: seance_id
     )
   end
 
   def seats_selected?
-    return true if params[:seats]
+    return true if seats
 
     errors << 'Please select your seat(s)'
     false
-  end
-
-  def seats
-    params[:seats]
   end
 end
