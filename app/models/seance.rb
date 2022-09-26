@@ -10,13 +10,14 @@ class Seance < ApplicationRecord
   delegate :length, to: :movie, prefix: true, allow_nil: true
   scope :filtered_by_day, ->(date) { where('Date(start_time) = ?', date) }
 
-  def seats_hash
-    hall.all_seats.index_with do |seat|
-      taken_seats.include?(seat) ? 'reserved' : 'available'
+  def seats_availability
+    hall.all_seats.map do |seat|
+      status = taken_seats.include?(seat) ? 'reserved' : 'available'
+      { seat: seat, status: status }
     end
   end
 
   def taken_seats
-    tickets.map(&:seat)
+    tickets.pluck(:seat)
   end
 end

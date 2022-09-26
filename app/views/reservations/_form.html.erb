@@ -10,10 +10,10 @@
     </div>
   <% end %>
   <ul class="form-check list-unstyled mb-3 d-flex flex-wrap">
-    <% seance.seats_hash.each_pair do |seat, status| %>
+    <% seance.seats_array.each do |hash| %>
       <li class="d-flex col-1 me-5">
-        <%= form.check_box :seats, { multiple: true, class: 'form-check-input', disabled: status == 'reserved' }, seat, nil %>
-        <%= form.label :seats, seat, class: 'form-check-label mx-2' %>
+        <%= form.check_box :seats, { multiple: true, class: 'form-check-input', disabled: hash[:status] == 'reserved' }, hash[:seat], nil %>
+        <%= form.label :seats, hash[:seat], class: 'form-check-label mx-2' %>
       <li>
     <% end %>  
   </ul>
