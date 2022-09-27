@@ -1,6 +1,6 @@
 module Reservations
   module UseCases
-    class FindReservations
+    class Find
       def initialize(params:)
         @params = params
       end

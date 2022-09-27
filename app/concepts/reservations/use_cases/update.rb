@@ -1,14 +1,14 @@
 module Reservations
   module UseCases
-    class UpdateReservation
-      def initialize(reservation, status)
+    class Update
+      def initialize(reservation:, status:)
         @reservation = reservation
         @status = status
       end
 
       def call
-        confirm_reservation if status == 'confirmed'
-        cancel_reservation if status == 'cancelled'
+        confirm_reservation if status == Reservation::CONFIRMED
+        cancel_reservation if status == Reservation::CANCELLED
       end
 
       private

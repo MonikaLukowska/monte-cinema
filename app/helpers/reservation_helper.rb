@@ -1,26 +1,34 @@
 module ReservationHelper
   def text_color(status)
     case status
-    when 'created'
+    when Reservation::CREATED
       'text-info'
-    when 'confirmed'
+    when Reservation::CONFIRMED
       'text-success'
-    when 'cancelled'
+    when Reservation::CANCELLED
       'text-danger'
     end
   end
 
   def update_links(reservation)
     case reservation.status
-    when 'created'
+    when Reservation::CREATED
       content_tag(:ul, class: 'p-0 d-flex mb-3') do
-        concat(button_to('Confirm', seance_reservation_path(reservation.seance, reservation, status: 'confirmed'),
+        concat(button_to('Confirm', seance_reservation_path(
+                                      reservation.seance,
+                                      reservation,
+                                      status: Reservation::CREATED
+                                    ),
                          method: :patch, class: 'btn btn-success me-2'))
-        concat(button_to('Cancel', seance_reservation_path(reservation.seance, reservation, status: 'cancelled'),
+        concat(button_to('Cancel', seance_reservation_path(
+                                     reservation.seance,
+                                     reservation,
+                                     status: Reservation::CANCELLED
+                                   ),
                          method: :patch, class: 'btn btn-danger'))
       end
-    when 'confirmed'
-      button_to('Cancel', seance_reservation_path(reservation.seance, reservation, status: 'cancelled'),
+    when Reservation::CONFIRMED
+      button_to('Cancel', seance_reservation_path(reservation.seance, reservation, status: Reservation::CANCELLED),
                 method: :patch, class: 'btn btn-danger')
     end
   end

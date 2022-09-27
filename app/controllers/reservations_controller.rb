@@ -1,6 +1,7 @@
 class ReservationsController < ApplicationController
   def index
-    render :index, locals: { reservations: Reservations::UseCases::FindReservations.new(params: params).call }
+    reservations = Reservations::UseCases::Find.new(params: params).call
+    render :index, locals: { reservations: reservations }
   end
 
   def new
@@ -22,7 +23,7 @@ class ReservationsController < ApplicationController
   end
 
   def update
-    Reservations::UseCases::UpdateReservation.new(reservation, params[:status]).call
+    Reservations::UseCases::Update.new(reservation: reservation, status: params[:status]).call
     redirect_to seance_reservations_path(seance)
   end
 
