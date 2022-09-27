@@ -1,6 +1,6 @@
 class ReservationsController < ApplicationController
   def index
-    reservations = Reservations::UseCases::Find.new(params: params).call
+    reservations = Reservations::UseCases::Find.new(seance_id: params[:seance_id]).call
     render :index, locals: { reservations: reservations }
   end
 

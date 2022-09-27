@@ -1,8 +1,8 @@
 module Reservations
   module UseCases
     class Find
-      def initialize(params:)
-        @params = params
+      def initialize(seance_id:)
+        @seance_id = seance_id
       end
 
       def call
@@ -12,12 +12,12 @@ module Reservations
       private
 
       def find_by_seance
-        return if params[:seance_id].blank?
+        return if seance_id.nil?
 
-        Reservation.includes(:tickets, :seance).where(seance_id: params[:seance_id])
+        Reservation.includes(:tickets, :seance).where(seance_id: seance_id)
       end
 
-      attr_reader :params
+      attr_reader :seance_id
     end
   end
 end
