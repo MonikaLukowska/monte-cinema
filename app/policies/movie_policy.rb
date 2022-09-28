@@ -7,24 +7,8 @@ class MoviePolicy < ApplicationPolicy
     true
   end
 
-  def new?
-    manager?
-  end
-
-  def edit?
-    new?
-  end
-
-  def create?
-    manager?
-  end
-
-  def update?
-    manager?
-  end
-
-  def destroy?
-    update?
+  %i[new? edit? create? update? destory?].each do |method|
+    define_method(method) { manager? }
   end
 
   private
