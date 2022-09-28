@@ -2,8 +2,10 @@ require 'rails_helper'
 
 RSpec.describe 'Seabce management', type: :system, js: true do
   let!(:seance) { create(:seance) }
+  let(:manager) { create(:manager) }
 
   before do
+    login_as manager
     visit seances_path
   end
 

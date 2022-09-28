@@ -3,8 +3,10 @@ require 'rails_helper'
 RSpec.describe 'Seance management', type: :system do
   let!(:seance) { create(:seance) }
   let!(:hall) { create(:hall) }
+  let(:manager) { create(:manager) }
 
   before do
+    login_as manager
     visit seances_path
   end
 
