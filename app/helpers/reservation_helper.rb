@@ -17,7 +17,7 @@ module ReservationHelper
         concat(button_to('Confirm', seance_reservation_path(
                                       reservation.seance,
                                       reservation,
-                                      status: Reservation::CREATED
+                                      status: Reservation::CONFIRMED
                                     ),
                          method: :patch, class: 'btn btn-success me-2'))
         concat(button_to('Cancel', seance_reservation_path(
