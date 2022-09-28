@@ -74,3 +74,6 @@ Metrics/ModuleLength:
 
 Metrics/MethodLength:
   Enabled: false
+
+Rails/I18nLocaleTexts:
+  Enabled: false
