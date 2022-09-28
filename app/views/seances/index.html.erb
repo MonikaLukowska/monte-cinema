@@ -19,4 +19,6 @@
         </li>
   <% end %>
 </ul>
-<%= link_to 'New seance', new_seance_path, class: 'btn btn-primary mb-5 mt-3' %>
+<% if current_user && policy(Seance).new? %>
+  <%= link_to 'New seance', new_seance_path, class: 'btn btn-primary mb-5 mt-3' %>
+<% end %>  
