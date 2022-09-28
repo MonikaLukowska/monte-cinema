@@ -13,6 +13,21 @@ end
   Movie.where(title: Faker::Movie.title, length: [100, 120, 90].sample).first_or_create!
 end
 
+
+7.times do |day|
+  halls.each do |hall|
+    Seance.where(movie: Movie.all.sample, hall: hall, price: 15, start_time: Time.zone.now + day.days).first_or_create!
+  end
+end
+
+seances = Seance.all
+seances.each do |seance|
+  Reservation.where(seance: seance, email: 'user@example.com').first_or_create!.tap do |reservation|
+      Ticket.create(seat: 1, reservation: reservation)
+      Ticket.create(seat: 2, reservation: reservation)
+  end
+end
+
 5.times do |i|
   User.where(email: "client#{i}@example.com", password:'password').first_or_create!
 end

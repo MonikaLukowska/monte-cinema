@@ -29,6 +29,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_27_123158) do
     t.datetime "updated_at", null: false
   end
 
+
+  create_table "reservations", force: :cascade do |t|
+    t.bigint "seance_id", null: false
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "status", default: "created", null: false
+    t.index ["seance_id"], name: "index_reservations_on_seance_id"
+  end
+
+
   create_table "seances", force: :cascade do |t|
     t.bigint "movie_id", null: false
     t.bigint "hall_id", null: false

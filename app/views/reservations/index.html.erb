@@ -1,0 +1,25 @@
+<h1 class="mb-5 text-center" >Seance reservations</h1>
+<ul class="px-0 d-flex flex-wrap justify-space-between">
+  <% reservations.each do |reservation| %>
+    <li class="d-block col-12 col-lg-6 col-xl-3 mb-2 px-2" test-id="reservation_<%= reservation.id %>">
+      <div class="card">
+        <div class="card-header"><span class="font-weight-bold">Reservation:</span> <%= reservation.id %></div>
+        <div class="card-body">
+          <p class="card-text"><span class="font-weight-bold">E-mail: </span><%= reservation.email %></p>
+          <p class="card-text"><span class="font-weight-bold">Movie: </span><%= reservation.seance.movie.title %></p>
+          <p class="card-text">
+            <span class="font-weight-bold">Seats: </span>
+            <% reservation.tickets.each do |ticket| %>
+              <%= ticket.seat %>, 
+            <% end %>
+          </p>
+          <p class="card-text">
+            <span class="font-weight-bold">Status: </span>
+            <span class=<%= text_color(reservation.status)%>><%= reservation.status %></span>
+          </p>
+          <%= update_links(reservation)%>
+        </div>
+      </div>
+    </li>
+  <% end %>
+</ul>

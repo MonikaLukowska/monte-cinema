@@ -1,18 +1,19 @@
-<div class="container d-flex align-center justify-content-center">
-  <div class="card ">
-    <div class="card-header"> <%= seance.movie.title %></div>
+<div class="container d-flex flex-column align-items-center justify-content-center">
+  <div class="card col-md-8">
+   <div class="card-header"> <%= seance.movie.title %></div>
     <div class="card-body">
       <p class="card-text"><span class="font-weight-bold">Length: </span><%= seance.movie.length %></p>
       <p class="card-text"><span class="font-weight-bold">Date: </span><%= seance.start_time.strftime('%m.%d.%Y') %></p>
       <p class="card-text"><span class="font-weight-bold">Time: </span><%= seance.start_time.strftime('%H:%M') %></p>
       <p class="card-text"><span class="font-weight-bold">Hall: </span><%= seance.hall.name %></p>
-      <div class="d-flex">
+      <div class="d-flex align-items-center">
         <%= link_to 'Edit', edit_seance_path(seance), class: "btn btn-warning me-1 "%> |
         <%= button_to 'Remove', seance, method: :delete, form: { data: { turbo_confirm: 'Are you sure?' } }, class: "btn btn-danger ms-1"%>
       </div>
-      <div class="mt-2">
-        <%= link_to 'Book tickets', new_seance_reservation_path(seance), class: "btn btn-primary" %>
-      </div>
     </div>
+  </div>
+  <div class="d-flex justify-content-center mt-3 align-items-center">
+    <%= link_to 'Book tickets', new_seance_reservation_path(seance), class: "btn btn-primary me-1" %> |
+    <%= link_to 'Reservations', seance_reservations_path(seance), class: "btn btn-info ms-1"%>
   </div>
 </div>
