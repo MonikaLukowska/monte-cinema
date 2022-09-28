@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_26_123726) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_27_123158) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -29,6 +29,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_26_123726) do
     t.datetime "updated_at", null: false
   end
 
+
   create_table "reservations", force: :cascade do |t|
     t.bigint "seance_id", null: false
     t.string "email"
@@ -37,6 +38,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_26_123726) do
     t.string "status", default: "created", null: false
     t.index ["seance_id"], name: "index_reservations_on_seance_id"
   end
+
 
   create_table "seances", force: :cascade do |t|
     t.bigint "movie_id", null: false
@@ -55,6 +57,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_26_123726) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["reservation_id"], name: "index_tickets_on_reservation_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer "role", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "reservations", "seances"
