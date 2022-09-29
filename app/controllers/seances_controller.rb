@@ -1,4 +1,6 @@
 class SeancesController < ApplicationController
+  before_action :authenticate_user!, except: %i[index show]
+
   def index
     seances = Seance.includes(:movie).filtered_by_day(date).group_by(&:movie)
 
@@ -10,15 +12,22 @@ class SeancesController < ApplicationController
   end
 
   def new
+    authorize Seance
+
     render :new, locals: { seance: Seance.new }
   end
 
   def edit
+    authorize seance
+
     render :edit, locals: { seance: }
   end
 
   def create
     record = Seance.new(seance_params)
+
+    authorize record
+
     if record.save
       redirect_to record, notice: t('.notice')
     else
@@ -27,6 +36,8 @@ class SeancesController < ApplicationController
   end
 
   def update
+    authorize seance
+
     if seance.update(seance_params)
       redirect_to seance, notice: t('.notice')
     else
@@ -35,6 +46,8 @@ class SeancesController < ApplicationController
   end
 
   def destroy
+    authorize seance
+
     seance.destroy
     redirect_to seances_path, notice: t('.notice')
   end

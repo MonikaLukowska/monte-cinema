@@ -4,8 +4,10 @@ RSpec.describe 'Movie management', type: :system do
   Capybara.javascript_driver = :webkit
   let!(:movie) { create(:movie) }
   let(:another_movie) { build(:movie) }
+  let(:manager) { create(:manager) }
 
   before do
+    login_as manager
     visit movies_path
   end
 

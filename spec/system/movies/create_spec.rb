@@ -2,8 +2,10 @@ require 'rails_helper'
 
 RSpec.describe 'Movie management', type: :system do
   let!(:movie) { create(:movie) }
+  let(:manager) { create(:manager) }
 
   before do
+    login_as manager
     visit movies_path
   end
 

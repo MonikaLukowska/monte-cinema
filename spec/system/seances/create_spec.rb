@@ -4,8 +4,10 @@ RSpec.describe 'Seance management', type: :system do
   let!(:movie) { create(:movie) }
   let!(:hall) { create(:hall) }
   let!(:seance) { create(:seance, hall_id: hall.id) }
+  let(:manager) { create(:manager) }
 
   before do
+    login_as manager
     visit seances_path
   end
 
