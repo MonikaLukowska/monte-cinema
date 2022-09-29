@@ -1,6 +1,9 @@
 class ReservationsController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     reservations = Reservations::UseCases::Find.new(seance_id: params[:seance_id]).call
+
     render :index, locals: { reservations: reservations }
   end
 
@@ -9,12 +12,14 @@ class ReservationsController < ApplicationController
   end
 
   def create
-    reservation = CreateReservation.new(params[:email], params[:seance_id], params[:seats])
-    if reservation.call
+    new_reservation = Reservations::UseCases::Create.new(user: current_user, seance_id: params[:seance_id],
+                                                         seats: params[:seats])
+
+    if new_reservation.call
       redirect_to seances_path, notice: t('.notice')
     else
       redirect_back fallback_location: new_seance_reservation_path(seance),
-                    alert: reservation.errors.join
+                    alert: new_reservation.errors.join
     end
   end
 
@@ -30,7 +35,7 @@ class ReservationsController < ApplicationController
   private
 
   def seance
-    @seance = Seance.find(params[:seance_id])
+    @seance ||= Seance.find(params[:seance_id])
   end
 
   def reservation
