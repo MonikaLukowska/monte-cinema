@@ -7,8 +7,8 @@ class Reservation < ApplicationRecord
   RESERVATION_STATUSES = [CREATED, CONFIRMED, CANCELLED].freeze
 
   belongs_to :seance
+  belongs_to :user
   has_many :tickets, dependent: :destroy
 
-  validates :email, presence: true
-  validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :status, presence: true
 end
