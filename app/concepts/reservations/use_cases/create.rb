@@ -28,8 +28,10 @@ module Reservations
 
       private
 
+      attr_reader :user, :seance_id, :seats
+
       def reservation
-       @reservation ||= Reservation.create!(
+        @reservation ||= Reservation.create!(
           user: user,
           seance_id: seance_id
         )
@@ -41,8 +43,6 @@ module Reservations
         errors << 'Please select your seat(s)'
         false
       end
-
-      attr_reader :user, :seance_id, :seats
     end
   end
 end

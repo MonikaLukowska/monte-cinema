@@ -19,7 +19,7 @@ class ReservationsController < ApplicationController
       redirect_to seances_path, notice: t('.notice')
     else
       redirect_back fallback_location: new_seance_reservation_path(seance),
-                    alert: new_reservation.errors.join
+                    alert: new_reservation.errors
     end
   end
 
