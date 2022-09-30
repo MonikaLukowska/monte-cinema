@@ -5,8 +5,10 @@
       <div class="card">
         <div class="card-header"><span class="font-weight-bold">Reservation:</span> <%= reservation.id %></div>
         <div class="card-body">
-          <p class="card-text"><span class="font-weight-bold">E-mail: </span><%= reservation.email %></p>
+          <p class="card-text"><span class="font-weight-bold">E-mail: </span><%= reservation.user.email %></p>
           <p class="card-text"><span class="font-weight-bold">Movie: </span><%= reservation.seance.movie.title %></p>
+          <p class="card-text"><span class="font-weight-bold">Date: </span><%= date(reservation.seance.start_time) %></p>
+          <p class="card-text"><span class="font-weight-bold">Time: </span><%= time(reservation.seance.start_time) %></p>
           <p class="card-text">
             <span class="font-weight-bold">Seats: </span>
             <% reservation.tickets.each do |ticket| %>
