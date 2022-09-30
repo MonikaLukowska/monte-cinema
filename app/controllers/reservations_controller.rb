@@ -2,18 +2,23 @@ class ReservationsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    reservations = Reservations::UseCases::Find.new(seance_id: params[:seance_id]).call
+    reservations = policy_scope(Reservation.includes(:user, :tickets, seance: :movie).order('seances.start_time desc'))
 
     render :index, locals: { reservations: reservations }
   end
 
   def new
+    authorize Reservation
     render :new, locals: { reservation: Reservation.new, seance: seance }
   end
 
   def create
-    new_reservation = Reservations::UseCases::Create.new(user: current_user, seance_id: params[:seance_id],
-                                                         seats: params[:seats])
+    authorize Reservation
+    new_reservation = Reservations::UseCases::Create.new(
+      user: current_user,
+      seance_id: params[:seance_id],
+      seats: params[:seats]
+    )
 
     if new_reservation.call
       redirect_to seances_path, notice: t('.notice')
@@ -24,11 +29,19 @@ class ReservationsController < ApplicationController
   end
 
   def show
+    authorize reservation
     render :show, locals: { reservation: reservation }
   end
 
-  def update
-    Reservations::UseCases::Update.new(reservation: reservation, status: params[:status]).call
+  def confirm
+    authorize reservation
+    Reservations::UseCases::Update.new(reservation: reservation, status: Reservation::CONFIRMED).call
+    redirect_to seance_reservations_path(seance)
+  end
+
+  def cancel
+    authorize reservation
+    Reservations::UseCases::Update.new(reservation: reservation, status: Reservation::CANCELLED).call
     redirect_to seance_reservations_path(seance)
   end
 
