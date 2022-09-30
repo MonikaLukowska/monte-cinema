@@ -9,8 +9,8 @@ Rails.application.routes.draw do
   end
   resources :reservations, only: %i[index] do
     member do
-    patch 'cancel', to: 'reservations#cancel'
-    patch 'confirm', to: 'reservations#confirm'
+      patch 'cancel', to: 'reservations#cancel'
+      patch 'confirm', to: 'reservations#confirm'
     end
   end
  
