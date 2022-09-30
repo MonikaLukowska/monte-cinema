@@ -24,7 +24,7 @@ end
   User.where(email: "client#{i}@example.com").first_or_create!(password:'password')
 end
 
-User.where(email: 'manager@example.com').first_or_create!(password:'password')
+User.where(email: 'manager@example.com', role: :manager).first_or_create!(password:'password')
 
 seances = Seance.all
 seances.each do |seance|
