@@ -1,9 +1,9 @@
 module ApplicationHelper
-  def time(date)
+  def format_time(date)
     date.strftime('%H:%M')
   end
 
-  def date(date)
-    date.strftime('%H:%M - %e %B')
+  def format_date(date)
+    date.strftime('%d/%m')
   end
 end
