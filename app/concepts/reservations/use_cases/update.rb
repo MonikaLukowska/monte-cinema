@@ -18,6 +18,10 @@ module Reservations
       end
 
       def cancel_reservation
+        if reservation.status == Reservation::CONFIRMED
+          reservation.errors.add(:status, message: 'confirmed reservation cannot be cancelled')
+          return
+        end
         ActiveRecord::Base.transaction do
           reservation.update!(status: Reservation::CANCELLED)
           tickets.each(&:destroy!)

@@ -36,13 +36,15 @@ class ReservationsController < ApplicationController
   def confirm
     authorize reservation
     Reservations::UseCases::Update.new(reservation: reservation, status: Reservation::CONFIRMED).call
-    redirect_to seance_reservations_path(seance)
+    redirect_to reservations_path, notice: t('.notice')
   end
 
   def cancel
     authorize reservation
     Reservations::UseCases::Update.new(reservation: reservation, status: Reservation::CANCELLED).call
-    redirect_to seance_reservations_path(seance)
+    notice = reservation.errors.any? ? reservation.errors[:status] : t('.notice')
+
+    redirect_to reservations_path, notice: notice
   end
 
   private
