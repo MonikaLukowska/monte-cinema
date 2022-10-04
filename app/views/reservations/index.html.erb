@@ -5,8 +5,10 @@
       <div class="card">
         <div class="card-header"><span class="font-weight-bold">Reservation:</span> <%= reservation.id %></div>
         <div class="card-body">
-          <p class="card-text"><span class="font-weight-bold">E-mail: </span><%= reservation.email %></p>
+          <p class="card-text"><span class="font-weight-bold">E-mail: </span><%= reservation.user.email %></p>
           <p class="card-text"><span class="font-weight-bold">Movie: </span><%= reservation.seance.movie.title %></p>
+          <p class="card-text"><span class="font-weight-bold">Date: </span><%= format_date(reservation.seance.start_time) %></p>
+          <p class="card-text"><span class="font-weight-bold">Time: </span><%= format_time(reservation.seance.start_time) %></p>
           <p class="card-text">
             <span class="font-weight-bold">Seats: </span>
             <% reservation.tickets.each do |ticket| %>
@@ -17,7 +19,10 @@
             <span class="font-weight-bold">Status: </span>
             <span class=<%= text_color(reservation.status)%>><%= reservation.status %></span>
           </p>
-          <%= update_links(reservation)%>
+          <ul class="p-0 d-flex mb-3">
+            <%= generate_confirm_link(reservation) if current_user.manager? && reservation.status == Reservation::CREATED %>
+            <%= generate_cancel_link(reservation) if reservation.status == Reservation::CREATED %>
+          </ul>
         </div>
       </div>
     </li>

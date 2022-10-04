@@ -47,4 +47,8 @@ en:
   reservations:
     create:
       notice: You successfully reserved seats
+    confirm:
+      notice: Reservation successfully updated
+    cancell:
+      notice: Reservation successfully updated
     
