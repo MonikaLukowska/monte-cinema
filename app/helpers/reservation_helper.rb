@@ -10,18 +10,11 @@ module ReservationHelper
     end
   end
 
-  def update_links(reservation)
-    case reservation.status
-    when Reservation::CREATED
-      content_tag(:ul, class: 'p-0 d-flex mb-3') do
-        concat(button_to('Confirm', confirm_reservation_path(reservation),
-                         method: :patch, class: 'btn btn-success me-2'))
-        concat(button_to('Cancel', cancel_reservation_path(reservation),
-                         method: :patch, class: 'btn btn-danger'))
-      end
-    when Reservation::CONFIRMED
-      button_to('Cancel', cancel_reservation_path(reservation),
-                method: :patch, class: 'btn btn-danger')
-    end
+  def generate_confirm_link(reservation)
+    button_to('Confirm', confirm_reservation_path(reservation), method: :patch, class: 'btn btn-success me-2')
+  end
+
+  def generate_cancel_link(reservation)
+    button_to('Cancel', cancel_reservation_path(reservation), method: :patch, class: 'btn btn-danger')
   end
 end
