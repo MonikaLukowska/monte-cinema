@@ -3,7 +3,7 @@ class CancelOutdatedReservationsJob < ApplicationJob
 
   def perform
     reservations.each do |reservation|
-      cancel_reservation(reservation).call unless outdated?(reservation)
+      cancel_reservation(reservation).call if outdated?(reservation)
     end
   end
 
@@ -22,6 +22,6 @@ class CancelOutdatedReservationsJob < ApplicationJob
   end
 
   def outdated?(reservation)
-    reservation.seance.start_time >= DateTime.now + Reservation::CONFIRMATION_DEADLINE
+    reservation.seance.start_time <= DateTime.now + Reservation::CONFIRMATION_DEADLINE
   end
 end
