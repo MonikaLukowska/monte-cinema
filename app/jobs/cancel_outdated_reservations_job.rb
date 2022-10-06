@@ -3,7 +3,7 @@ class CancelOutdatedReservationsJob < ApplicationJob
 
   def perform
     reservations.each do |reservation|
-      cancel_reservation(reservation, status).call unless outdated?(reservation)
+      cancel_reservation(reservation).call unless outdated?(reservation)
     end
   end
 
@@ -14,14 +14,14 @@ class CancelOutdatedReservationsJob < ApplicationJob
   end
 
   def reservations
-    Reservation.where(status: 'created')
+    Reservation.where(status: Reservation::CREATED)
   end
 
-  def cancel_reservation(reservation, status)
+  def cancel_reservation(reservation)
     Reservations::UseCases::Update.new(reservation: reservation, status: status)
   end
 
   def outdated?(reservation)
-    reservation.seance.start_time >= DateTime.now + 30.minutes
+    reservation.seance.start_time >= DateTime.now + Reservation::CONFIRMATION_DEADLINE
   end
 end
