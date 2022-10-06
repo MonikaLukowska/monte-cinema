@@ -7,7 +7,7 @@ RSpec.describe Reservations::UseCases::Create do
     subject(:create_reservation) { described_class.new(**params) }
 
     let(:user) { create(:user) }
-    let(:seance) { create(:seance) }
+    let(:seance) { create(:seance, start_time: DateTime.now + 1.hour) }
     let(:params) do
       {
         user: user,
@@ -36,13 +36,25 @@ RSpec.describe Reservations::UseCases::Create do
       expect(create_reservation.call.tickets.count).to eq(seats.size)
     end
 
-    context 'when params invalid' do
+    context 'when seats are not selected' do
       let(:seats) { nil }
 
       before { create_reservation.call }
 
-      it 'returns post errors' do
+      it 'returns reservation errors' do
         expect(create_reservation.errors).to match_array(['Please select your seat(s)'])
+      end
+    end
+
+    context 'when it is too late to make online reservation' do
+      before do
+        seance.start_time = DateTime.now + 29.minutes
+        create_reservation.call
+      end
+
+      it 'returns reservation errors' do
+        expect(create_reservation.errors)
+          .to match_array(['This seance starts in 30 minutes or less, make reservation at ticket desk'])
       end
     end
   end
