@@ -7,7 +7,7 @@ RSpec.describe Reservations::UseCases::Create do
     subject(:create_reservation) { described_class.new(**params) }
 
     let(:user) { create(:user) }
-    let(:seance) { create(:seance, start_time: DateTime.now + 1.hour) }
+    let(:seance) { create(:seance, start_time: date_time) }
     let(:params) do
       {
         user: user,
@@ -15,6 +15,7 @@ RSpec.describe Reservations::UseCases::Create do
         seats: seats
       }
     end
+    let(:date_time) { DateTime.now + 1.hour }
     let(:seats) { [1, 2] }
 
     it 'creates reservations' do
@@ -47,10 +48,9 @@ RSpec.describe Reservations::UseCases::Create do
     end
 
     context 'when it is too late to make online reservation' do
-      before do
-        seance.start_time = DateTime.now + 29.minutes
-        create_reservation.call
-      end
+      let(:date_time) { DateTime.now + 29.minutes }
+
+      before { create_reservation.call }
 
       it 'returns reservation errors' do
         expect(create_reservation.errors)

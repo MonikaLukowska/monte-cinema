@@ -11,8 +11,7 @@ module Reservations
       end
 
       def call
-        return unless seats_selected?
-        return if too_late?
+        return unless seats_selected? && not_too_late?
 
         ActiveRecord::Base.transaction do
           reservation.tap do |reservation|
@@ -46,11 +45,11 @@ module Reservations
       end
 
       def deadline
-        reservation.seance.start_time - Reservation::CONFIRMATION_DEADLINE
+        DateTime.now + Reservation::CONFIRMATION_DEADLINE
       end
 
-      def too_late?
-        return true if user.client? && DateTime.now >= deadline
+      def not_too_late?
+        return true if user.manager? || (user.client? && reservation.seance.start_time > deadline)
 
         errors << 'This seance starts in 30 minutes or less, make reservation at ticket desk'
         false
