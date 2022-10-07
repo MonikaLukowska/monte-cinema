@@ -32,7 +32,7 @@ RSpec.describe 'Seance management', type: :system do
       select(hall.name, from: 'Hall')
       select(date.strftime('%Y'), from: 'seance[start_time(1i)]')
       select(date.strftime('%B'), from: 'seance[start_time(2i)]')
-      select(date.strftime('%d'), from: 'seance[start_time(3i)]')
+      select(date.strftime('%-d'), from: 'seance[start_time(3i)]')
       select(date.strftime('%H'), from: 'seance[start_time(4i)]')
       select(date.strftime('%M'), from: 'seance[start_time(5i)]')
       fill_in('Price', with: 15)
