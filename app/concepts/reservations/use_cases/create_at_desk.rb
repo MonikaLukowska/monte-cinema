@@ -1,6 +1,6 @@
 module Reservations
   module UseCases
-    class Create
+    class CreateAtDesk
       attr_reader :errors
 
       def initialize(user:, seance:, seats:)
@@ -11,7 +11,7 @@ module Reservations
       end
 
       def call
-        return unless seats_selected? && not_too_late?
+        return unless seats_selected?
 
         ActiveRecord::Base.transaction do
           reservation.tap do |reservation|
@@ -33,7 +33,8 @@ module Reservations
       def reservation
         @reservation ||= Reservation.create!(
           user: user,
-          seance_id: seance.id
+          seance_id: seance.id,
+          status: Reservation::CONFIRMED
         )
       end
 
@@ -41,17 +42,6 @@ module Reservations
         return true if seats
 
         errors << 'Please select your seat(s)'
-        false
-      end
-
-      def deadline
-        DateTime.now + Reservation::CONFIRMATION_DEADLINE
-      end
-
-      def not_too_late?
-        return true if seance.start_time > deadline
-
-        errors << 'This seance starts in 30 minutes or less, make reservation at ticket desk'
         false
       end
     end

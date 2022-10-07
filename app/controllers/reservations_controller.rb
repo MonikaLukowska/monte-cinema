@@ -28,6 +28,22 @@ class ReservationsController < ApplicationController
     end
   end
 
+  def create_at_desk
+    authorize Reservation
+    new_reservation = Reservations::UseCases::CreateAtDesk.new(
+      user: current_user,
+      seance: seance,
+      seats: params[:seats]
+    )
+
+    if new_reservation.call
+      redirect_to seances_path, notice: t('.notice')
+    else
+      redirect_back fallback_location: new_seance_reservation_path(seance),
+                    alert: new_reservation.errors
+    end
+  end
+
   def show
     authorize reservation
     render :show, locals: { reservation: reservation }
