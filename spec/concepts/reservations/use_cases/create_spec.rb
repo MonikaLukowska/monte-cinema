@@ -4,17 +4,10 @@ require 'rails_helper'
 
 RSpec.describe Reservations::UseCases::Create do
   describe '.call' do
-    subject(:create_reservation) { described_class.new(**params) }
+    subject(:create_reservation) { described_class.new(user: user, seance: seance, seats: seats) }
 
     let(:user) { create(:user) }
     let(:seance) { create(:seance, start_time: date_time) }
-    let(:params) do
-      {
-        user: user,
-        seance_id: seance.id,
-        seats: seats
-      }
-    end
     let(:date_time) { DateTime.now + 1.hour }
     let(:seats) { [1, 2] }
 
@@ -45,6 +38,10 @@ RSpec.describe Reservations::UseCases::Create do
       it 'returns reservation errors' do
         expect(create_reservation.errors).to match_array(['Please select your seat(s)'])
       end
+
+      it 'does not create the reservation' do
+        expect(Reservation.count).to eq(0)
+      end
     end
 
     context 'when it is too late to make online reservation' do
@@ -55,6 +52,10 @@ RSpec.describe Reservations::UseCases::Create do
       it 'returns reservation errors' do
         expect(create_reservation.errors)
           .to match_array(['This seance starts in 30 minutes or less, make reservation at ticket desk'])
+      end
+
+      it 'does not create the reservation' do
+        expect(Reservation.count).to eq(0)
       end
     end
   end
