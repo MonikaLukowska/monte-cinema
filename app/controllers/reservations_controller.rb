@@ -15,22 +15,24 @@ class ReservationsController < ApplicationController
   def create
     authorize Reservation
 
-    if new_reservation.call
+    reservation = Reservations::UseCases::Create.new(**reservation_params)
+    if reservation.call
       redirect_to seances_path, notice: t('.notice')
     else
       redirect_back fallback_location: new_seance_reservation_path(seance),
-                    alert: new_reservation.errors
+                    alert: reservation.errors
     end
   end
 
   def create_at_desk
     authorize Reservation
 
-    if new_reservation.call
+    reservation = Reservations::UseCases::CreateAtDesk.new(**reservation_params)
+    if reservation.call
       redirect_to seances_path, notice: t('.notice')
     else
       redirect_back fallback_location: new_seance_reservation_path(seance),
-                    alert: new_reservation.errors
+                    alert: reservation.errors
     end
   end
 
@@ -63,11 +65,11 @@ class ReservationsController < ApplicationController
     @reservation ||= Reservation.find(params[:id])
   end
 
-  def new_reservation
-    Reservations::UseCases::CreateAtDesk.new(
+  def reservation_params
+    {
       user: current_user,
       seance: seance,
       seats: params[:seats]
-    )
+    }
   end
 end
