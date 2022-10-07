@@ -32,30 +32,31 @@ RSpec.describe Reservations::UseCases::Create do
 
     context 'when seats are not selected' do
       let(:seats) { nil }
-
-      before { create_reservation.call }
+      let(:error_message) { 'Please select your seat(s)' }
 
       it 'returns reservation errors' do
-        expect(create_reservation.errors).to match_array(['Please select your seat(s)'])
+        expect { create_reservation.call }.to change(create_reservation, :errors)
+          .from([])
+          .to([error_message])
       end
 
       it 'does not create the reservation' do
-        expect(Reservation.count).to eq(0)
+        expect { create_reservation.call }.not_to change(Reservation, :count)
       end
     end
 
     context 'when it is too late to make online reservation' do
       let(:date_time) { DateTime.now + 29.minutes }
-
-      before { create_reservation.call }
+      let(:error_message) { 'This seance starts in 30 minutes or less, make reservation at ticket desk' }
 
       it 'returns reservation errors' do
-        expect(create_reservation.errors)
-          .to match_array(['This seance starts in 30 minutes or less, make reservation at ticket desk'])
+        expect { create_reservation.call }.to change(create_reservation, :errors)
+          .from([])
+          .to([error_message])
       end
 
       it 'does not create the reservation' do
-        expect(Reservation.count).to eq(0)
+        expect { create_reservation.call }.not_to change(Reservation, :count)
       end
     end
   end
