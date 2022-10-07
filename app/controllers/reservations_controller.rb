@@ -14,11 +14,6 @@ class ReservationsController < ApplicationController
 
   def create
     authorize Reservation
-    new_reservation = Reservations::UseCases::Create.new(
-      user: current_user,
-      seance: seance,
-      seats: params[:seats]
-    )
 
     if new_reservation.call
       redirect_to seances_path, notice: t('.notice')
@@ -30,11 +25,6 @@ class ReservationsController < ApplicationController
 
   def create_at_desk
     authorize Reservation
-    new_reservation = Reservations::UseCases::CreateAtDesk.new(
-      user: current_user,
-      seance: seance,
-      seats: params[:seats]
-    )
 
     if new_reservation.call
       redirect_to seances_path, notice: t('.notice')
@@ -71,5 +61,13 @@ class ReservationsController < ApplicationController
 
   def reservation
     @reservation ||= Reservation.find(params[:id])
+  end
+
+  def new_reservation
+    Reservations::UseCases::CreateAtDesk.new(
+      user: current_user,
+      seance: seance,
+      seats: params[:seats]
+    )
   end
 end
