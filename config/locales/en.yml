@@ -47,6 +47,8 @@ en:
   reservations:
     create:
       notice: You successfully reserved seats
+    create_at_desk:
+      notice: You successfully created reservation
     confirm:
       notice: Reservation successfully updated
     cancell:

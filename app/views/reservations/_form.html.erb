@@ -1,4 +1,4 @@
-<%= form_with(url: seance_reservations_path, method: :post, local: true, data:{ turbo: false }) do |form| %>
+<%= form_with(url: seance_reservations_path, method: :post, local: true ) do |form| %>
   <% if reservation.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(reservation.errors.count, "error") %> Prohibited this reservation from being saved:</h2>
@@ -18,6 +18,10 @@
     <% end %>  
   </ul>
   <div class="actions">
-    <%= form.submit  class: 'btn btn-primary mt-2 mb-2' %>
+   <% if current_user.client? %>
+    <%= form.submit class: 'btn btn-primary mt-2 mb-2' %>
+   <% else %>
+    <%= form.submit formaction: seance_desk_reservation_path(seance), class: 'btn btn-primary mt-2 mb-2' %>
+   <% end %>
   </div>
 <% end %>
