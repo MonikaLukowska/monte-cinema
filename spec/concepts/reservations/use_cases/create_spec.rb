@@ -4,17 +4,11 @@ require 'rails_helper'
 
 RSpec.describe Reservations::UseCases::Create do
   describe '.call' do
-    subject(:create_reservation) { described_class.new(**params) }
+    subject(:create_reservation) { described_class.new(user: user, seance: seance, seats: seats) }
 
     let(:user) { create(:user) }
-    let(:seance) { create(:seance) }
-    let(:params) do
-      {
-        user: user,
-        seance_id: seance.id,
-        seats: seats
-      }
-    end
+    let(:seance) { create(:seance, start_time: date_time) }
+    let(:date_time) { DateTime.now + 1.hour }
     let(:seats) { [1, 2] }
 
     it 'creates reservations' do
@@ -36,13 +30,33 @@ RSpec.describe Reservations::UseCases::Create do
       expect(create_reservation.call.tickets.count).to eq(seats.size)
     end
 
-    context 'when params invalid' do
+    context 'when seats are not selected' do
       let(:seats) { nil }
+      let(:error_message) { 'Please select your seat(s)' }
 
-      before { create_reservation.call }
+      it 'returns reservation errors' do
+        expect { create_reservation.call }.to change(create_reservation, :errors)
+          .from([])
+          .to([error_message])
+      end
 
-      it 'returns post errors' do
-        expect(create_reservation.errors).to match_array(['Please select your seat(s)'])
+      it 'does not create the reservation' do
+        expect { create_reservation.call }.not_to change(Reservation, :count)
+      end
+    end
+
+    context 'when it is too late to make online reservation' do
+      let(:date_time) { DateTime.now + 29.minutes }
+      let(:error_message) { 'This seance starts in 30 minutes or less, make reservation at ticket desk' }
+
+      it 'returns reservation errors' do
+        expect { create_reservation.call }.to change(create_reservation, :errors)
+          .from([])
+          .to([error_message])
+      end
+
+      it 'does not create the reservation' do
+        expect { create_reservation.call }.not_to change(Reservation, :count)
       end
     end
   end

@@ -18,6 +18,6 @@ class Seance < ApplicationRecord
   end
 
   def taken_seats
-    tickets.pluck(:seat)
+    tickets.map(&:seat)
   end
 end

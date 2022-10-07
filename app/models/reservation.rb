@@ -5,6 +5,7 @@ class Reservation < ApplicationRecord
   CONFIRMED = 'confirmed'.freeze
   CANCELLED = 'cancelled'.freeze
   RESERVATION_STATUSES = [CREATED, CONFIRMED, CANCELLED].freeze
+  CONFIRMATION_DEADLINE = 30.minutes
 
   belongs_to :seance
   belongs_to :user
