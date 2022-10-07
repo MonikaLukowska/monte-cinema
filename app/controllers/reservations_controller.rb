@@ -16,7 +16,7 @@ class ReservationsController < ApplicationController
     authorize Reservation
     new_reservation = Reservations::UseCases::Create.new(
       user: current_user,
-      seance_id: params[:seance_id],
+      seance: params[:seance],
       seats: params[:seats]
     )
 

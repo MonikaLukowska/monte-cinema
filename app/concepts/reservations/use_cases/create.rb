@@ -3,9 +3,9 @@ module Reservations
     class Create
       attr_reader :errors
 
-      def initialize(user:, seance_id:, seats:)
+      def initialize(user:, seance:, seats:)
         @user = user
-        @seance_id = seance_id
+        @seance = seance
         @seats = seats
         @errors = []
       end
@@ -28,12 +28,12 @@ module Reservations
 
       private
 
-      attr_reader :user, :seance_id, :seats
+      attr_reader :user, :seance, :seats
 
       def reservation
         @reservation ||= Reservation.create!(
           user: user,
-          seance_id: seance_id
+          seance_id: seance.id
         )
       end
 
@@ -49,7 +49,7 @@ module Reservations
       end
 
       def not_too_late?
-        return true if user.manager? || (user.client? && reservation.seance.start_time > deadline)
+        return true if user.manager? || (user.client? && seance.start_time > deadline)
 
         errors << 'This seance starts in 30 minutes or less, make reservation at ticket desk'
         false
