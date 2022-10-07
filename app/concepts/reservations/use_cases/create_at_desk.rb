@@ -13,14 +13,12 @@ module Reservations
       def call
         return unless seats_selected?
 
-        ActiveRecord::Base.transaction do
-          reservation.tap do |reservation|
-            seats.each do |seat|
-              Ticket.create!(reservation_id: reservation.id, seat: seat)
-            end
-          end
-        end
-        reservation
+        Reservation.create!(
+          user: user,
+          seance_id: seance.id,
+          status: Reservation::CONFIRMED,
+          tickets: seats.map { |seat| Ticket.new(seat: seat) }
+        )
       rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotFound => e
         errors << "Reservation failed. Reason: #{e.message}"
         false
@@ -29,14 +27,6 @@ module Reservations
       private
 
       attr_reader :user, :seance, :seats
-
-      def reservation
-        @reservation ||= Reservation.create!(
-          user: user,
-          seance_id: seance.id,
-          status: Reservation::CONFIRMED
-        )
-      end
 
       def seats_selected?
         return true if seats
