@@ -3,4 +3,8 @@ class ReservationMailerPreview < ActionMailer::Preview
   def cancel_reservation_email
     ReservationMailer.cancel_reservation_email(FactoryBot.build(:reservation))
   end
+
+  def confirm_reservation_email
+    ReservationMailer.confirm_reservation_email(FactoryBot.build(:reservation))
+  end
 end
