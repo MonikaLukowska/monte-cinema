@@ -10,7 +10,8 @@ Rails.application.routes.draw do
   resources :movies, except: [:show]
   
   resources :seances do
-    resources :reservations, only: %i[new create]
+    post 'reservations/create_at_desk', to: 'reservations#create_at_desk', as: :desk_reservation
+    resources :reservations, only: %i[new create] 
   end
   resources :reservations, only: %i[index] do
     member do

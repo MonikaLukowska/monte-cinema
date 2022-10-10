@@ -8,7 +8,7 @@ RSpec.describe Reservations::UseCases::Create do
 
     let(:user) { create(:user) }
     let(:seance) { create(:seance, start_time: date_time) }
-    let(:date_time) { DateTime.now + 1.hour }
+    let(:date_time) { DateTime.current + 1.hour }
     let(:seats) { [1, 2] }
 
     it 'creates reservations' do
@@ -46,7 +46,7 @@ RSpec.describe Reservations::UseCases::Create do
     end
 
     context 'when it is too late to make online reservation' do
-      let(:date_time) { DateTime.now + 29.minutes }
+      let(:date_time) { DateTime.current + 29.minutes }
       let(:error_message) { 'This seance starts in 30 minutes or less, make reservation at ticket desk' }
 
       it 'returns reservation errors' do
