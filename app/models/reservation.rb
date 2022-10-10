@@ -12,4 +12,8 @@ class Reservation < ApplicationRecord
   has_many :tickets, dependent: :destroy
 
   validates :status, presence: true
+
+  def seats
+    tickets.map(&:seat).join(', ')
+  end
 end
