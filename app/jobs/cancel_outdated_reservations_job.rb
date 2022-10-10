@@ -22,6 +22,6 @@ class CancelOutdatedReservationsJob < ApplicationJob
   end
 
   def outdated?(reservation)
-    reservation.seance.start_time <= DateTime.now + Reservation::CONFIRMATION_DEADLINE
+    reservation.seance.start_time - Reservation::CONFIRMATION_DEADLINE < DateTime.current
   end
 end

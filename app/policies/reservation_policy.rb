@@ -18,7 +18,11 @@ class ReservationPolicy < ApplicationPolicy
   end
 
   def create?
-    true
+    client?
+  end
+
+  def create_at_desk?
+    manager?
   end
 
   def confirm?
@@ -33,6 +37,10 @@ class ReservationPolicy < ApplicationPolicy
 
   def manager?
     user.manager?
+  end
+
+  def client?
+    user.client?
   end
 
   def permitted_client?
