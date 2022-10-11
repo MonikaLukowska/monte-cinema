@@ -1,0 +1,8 @@
+  Reservation <%= @reservation.id %> has been cancelled.
+  ======================================================
+  Dear client,
+  Please be informed that you have not confirmed your reservation. Therefore it has been cancelled.
+  Reservation details:
+  Movie: <%= @reservation.seance.movie.title %>
+  Start_time: <%= @reservation.seance.start_time.strftime('%H:%M') %>
+  Seats: <%= @reservation.seats %>

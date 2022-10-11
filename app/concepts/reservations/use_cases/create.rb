@@ -13,12 +13,15 @@ module Reservations
       def call
         return unless seats_selected? && not_too_late?
 
-        Reservation.create!(
+        reservation = Reservation.create!(
           user: user,
           seance_id: seance.id,
           status: Reservation::CONFIRMED,
           tickets: seats.map { |seat| Ticket.new(seat: seat) }
         )
+
+        ConfirmReservationMailer.confirm_reservation_email(reservation).deliver_later
+        reservation
       rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotFound => e
         errors << "Reservation failed. Reason: #{e.message}"
         false

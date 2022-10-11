@@ -1,0 +1,8 @@
+  Reservation <%= @reservation.id %> has been created.
+  ======================================================
+  Dear client,
+  You created reservation. It has to be confirmed at the ticket desk no later than 30 minutes before seance.
+  Reservation details:
+  Movie: <%= @reservation.seance.movie.title %>
+  Start_time: <%= @reservation.seance.start_time.strftime('%H:%M') %>
+  Seats: <%= @reservation.seats %>
