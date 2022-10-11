@@ -21,5 +21,9 @@ RSpec.describe CancelOutdatedReservationsJob, type: :job do
         .from(Reservation::CREATED)
         .to(Reservation::CANCELLED)
     end
+
+    it 'equeues sending cancelletion e-mail' do
+      expect { described_class.perform_now }.to change { ActionMailer::Base.deliveries.count }.by(1)
+    end
   end
 end

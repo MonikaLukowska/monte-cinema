@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Reservation <%= @reservation.id %> has been cancelled.</h1>
+    <div>
+      <p>Dear client,</p>
+      <p>Please be informed that you have not confirmed your reservation. Therefore it has been cancelled.</p>
+      <p>Reservation details:</p>
+      <p><span>Movie: </span><%= @reservation.seance.movie.title %></p>
+      <p><span>Start_time:</span> <%= @reservation.seance.start_time.strftime('%H:%M') %></p>
+      <p><span>Seats: </span><%= @reservation.seats %></p>
+    </div>
+  </body>
+</html>
