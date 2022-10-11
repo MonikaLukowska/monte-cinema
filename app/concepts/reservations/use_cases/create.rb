@@ -20,7 +20,7 @@ module Reservations
           tickets: seats.map { |seat| Ticket.new(seat: seat) }
         )
 
-        ReservationMailer.confirm_reservation_email(reservation).deliver_later
+        ConfirmReservationMailer.confirm_reservation_email(reservation).deliver_later
         reservation
       rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotFound => e
         errors << "Reservation failed. Reason: #{e.message}"

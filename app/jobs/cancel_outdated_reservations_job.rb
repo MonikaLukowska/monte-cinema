@@ -4,7 +4,7 @@ class CancelOutdatedReservationsJob < ApplicationJob
   def perform
     outdated_reservations.each do |reservation|
       cancel_reservation(reservation).call
-      ReservationMailer.cancel_reservation_email(reservation).deliver_now
+      CancelReservationMailer.cancel_reservation_email(reservation).deliver_now
     end
   end
 
