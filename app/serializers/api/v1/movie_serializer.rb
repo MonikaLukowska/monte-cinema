@@ -3,7 +3,7 @@
 module Api
   module V1
     class MovieSerializer < ActiveModel::Serializer
-      attributes :title, :length
+      attributes :id, :title, :length
 
       has_many :seances, serializer: SeanceMovieSerializer
     end

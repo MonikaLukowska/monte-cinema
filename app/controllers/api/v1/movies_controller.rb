@@ -3,7 +3,7 @@ module Api
     class MoviesController < ApiController
       def index
         movies = Movie.includes(:seances).fetch_by_day(day)
-        render json: movies, each_serialize: Api::V1::MovieSerializer, status: :ok
+        render_ok(movies, each_serializer: Api::V1::MovieSerializer)
       end
 
       private

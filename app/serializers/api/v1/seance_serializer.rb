@@ -3,10 +3,10 @@
 module Api
   module V1
     class SeanceSerializer < ActiveModel::Serializer
-      attributes :start_time, :price, :length, :movie_title
+      attributes :id, :start_time, :price, :length, :movie_title
 
       def length
-        object.movie.length.minutes
+        object.movie.length
       end
 
       def movie_title
