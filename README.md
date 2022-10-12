@@ -1,24 +1,57 @@
-# README
+# Monte Cinema
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Rubycamp project.
 
-Things you may want to cover:
+Tech Stack:
 
-* Prefered Ruby version: "3.1.2"
+* Ruby: 3.1.2
 
-* System dependencies
+* Rails 7.0.3
 
-* Configuration
+* PostgerSQL 14.5
 
-* Database creation
+* Sidekiq 6.5
 
-* Database initialization
+# Installation
 
-* How to run the test suite
+```
+# Clone repository:
+$ git clone https://github.com/MonikaLukowska/monte-cinema
 
-* Services (job queues, cache servers, search engines, etc.)
+# Install gems:
+$ bundle install
 
-* Deployment instructions
+# Create database and seeds:
+$ rails db:create
+$ rails db:migrate
+$ rails db:seed
 
-* ...
+# Run server
+$ rails server
+
+# Run Sidekiq
+$ bundle exec sidekiq
+```
+
+# Features/functionalities
+
+&rarr Login and registration
+&rarr Authorization for differnt roles
+&rarr Internal booking system
+&rarr Api for communication with automated devices (at the moment only 2 endpoints - index for movies by seances dates and show seance)
+&rarr External/public reservation system
+&rarr Automatic cancellation
+&rarr Mailers
+
+# Live
+[heroku app](https://monka-monte-cinema.herokuapp.com/)
+
+Credential for test manager:
+
+**e-mail:** manager@example.com
+**password:** password
+
+Credential for test client:
+
+**e-mail:** client1@example.com
+**password:** password
