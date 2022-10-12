@@ -1,9 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Seance management', type: :system do
-  let!(:movie) { create(:movie) }
-  let!(:hall) { create(:hall) }
-  let!(:seance) { create(:seance, hall_id: hall.id) }
+  let!(:seance) { create(:seance) }
   let(:manager) { create(:manager) }
 
   before do
@@ -11,14 +9,23 @@ RSpec.describe 'Seance management', type: :system do
     visit seances_path
   end
 
-  context 'when creating a seance' do
+  context 'when creating correct seance' do
+    let(:date) { DateTime.current }
+    let(:formatted_date) { date.strftime('%Y-%m-%dT%H:%M') }
+
     it 'creates a new seance' do
       click_link('New seance')
       fill_in('Price', with: 15)
+      fill_in('Start time', with: formatted_date)
       click_button('Create Seance')
       expect(page).to have_content('Seance was successfully added')
       expect(page).to have_content(seance.start_time.strftime('%H:%M'))
     end
+  end
+
+  context 'when creating invalid seance' do
+    let(:date2) { 1.hour.from_now }
+    let(:formatted_date2) { date2.strftime('%Y-%m-%dT%H:%M') }
 
     it 'shows an error when price is not present' do
       click_link('New seance')
@@ -27,14 +34,9 @@ RSpec.describe 'Seance management', type: :system do
     end
 
     it 'shows an error when new seance time covers another seance time in chosen hall' do
-      date = 1.hour.from_now
       click_link('New seance')
-      select(hall.name, from: 'Hall')
-      select(date.strftime('%Y'), from: 'seance[start_time(1i)]')
-      select(date.strftime('%B'), from: 'seance[start_time(2i)]')
-      select(date.strftime('%-d'), from: 'seance[start_time(3i)]')
-      select(date.strftime('%H'), from: 'seance[start_time(4i)]')
-      select(date.strftime('%M'), from: 'seance[start_time(5i)]')
+      select(seance.hall.name, from: 'Hall')
+      fill_in('Start time', with: formatted_date2)
       fill_in('Price', with: 15)
       click_button('Create Seance')
       expect(page).to have_text('Start time not available')

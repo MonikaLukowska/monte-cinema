@@ -43,6 +43,7 @@ gem 'pundit', '~> 2.2'
 
 # Use Sass to process CSS
 # gem 'sassc-rails'
+gem 'active_model_serializers', '~> 0.10.13'
 gem 'cssbundling-rails'
 gem 'jsbundling-rails'
 gem 'redis', '~> 4.8'
@@ -58,6 +59,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
   gem 'rspec-rails'
+  gem 'rswag', '~> 2.6'
   gem 'rubocop', '1.36.0'
   gem 'rubocop-rails', '2.15.2'
   gem 'rubocop-rspec', '2.12.1'

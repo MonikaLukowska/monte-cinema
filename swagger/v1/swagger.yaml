@@ -1,0 +1,156 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/movies":
+    get:
+      summary: fetch movies screening today
+      tags:
+      - movies
+      description: lists all movies with screenings on current date
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                properities:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properities:
+                        id:
+                          type: integer
+                          example: 1
+                        title:
+                          type: string
+                          example: It
+                        length:
+                          type: integer
+                          example: 90
+                        seances:
+                          type: array
+                          items:
+                            type: object
+                            properities:
+                              id:
+                                type: integer
+                                example: 2
+                              start_time:
+                                type: string
+                                example: '2022-10-12T12:24:08.583+02:00'
+  "/api/v1/movies?date={date}":
+    get:
+      summary: fetch movies by date
+      tags:
+      - movies
+      description: lists all movies with screenings on given date
+      parameters:
+      - name: date
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                properities:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properities:
+                        id:
+                          type: integer
+                          example: 1
+                        title:
+                          type: string
+                          example: It
+                        length:
+                          type: integer
+                          example: 90
+                        seances:
+                          type: array
+                          items:
+                            type: object
+                            properities:
+                              id:
+                                type: integer
+                                example: 2
+                              start_time:
+                                type: string
+                                example: '2022-10-12T12:24:08.583+02:00'
+  "/api/v1/seances/{id}":
+    get:
+      summary: Fetch seance
+      tags:
+      - seances
+      description: find seance
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - data
+                properities:
+                  data:
+                    type: object
+                    properities:
+                      id:
+                        type: integer
+                        example: 1
+                      start_time:
+                        type: string
+                        example: '2022-10-12T12:24:08.583+02:00'
+                      price:
+                        type: integer
+                        example: 15
+                      length:
+                        type: integer
+                        example: 60
+                      movie_title:
+                        type: string
+                        example: It
+        '404':
+          description: Product not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Record not found
+                  code:
+                    type: integer
+                    example: 404
+                  status:
+                    type: string
+                    example: error
+                required:
+                - error
+                - code
+                - status
+servers:
+- url: http://localhost:3000
