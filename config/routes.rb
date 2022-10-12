@@ -26,11 +26,7 @@ Rails.application.routes.draw do
 
   namespace 'api' do
     namespace 'v1' do
-      resources :movies, only: [:index] do
-        collection do
-          get 'find_by_date', as: 'screening_on'
-        end
-      end
+      resources :movies, only: [:index] 
       resources :seances, only: [:show]
     end
   end
