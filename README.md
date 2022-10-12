@@ -35,13 +35,13 @@ $ bundle exec sidekiq
 
 # Features/functionalities
 
-&rarr Login and registration
-&rarr Authorization for differnt roles
-&rarr Internal booking system
-&rarr Api for communication with automated devices (at the moment only 2 endpoints - index for movies by seances dates and show seance)
-&rarr External/public reservation system
-&rarr Automatic cancellation
-&rarr Mailers
+&rarr; Login and registration
+&rarr; Authorization for differnt roles
+&rarr; Internal booking system
+&rarr; Api for communication with automated devices (at the moment only 2 endpoints - index for movies by seances dates and show seance)
+&rarr; External/public reservation system
+&rarr; Automatic cancellation
+&rarr; Mailers
 
 # Live
 [heroku app](https://monka-monte-cinema.herokuapp.com/)
@@ -55,3 +55,6 @@ Credential for test client:
 
 **e-mail:** client1@example.com
 **password:** password
+
+# API documentation
+[link](https://monka-monte-cinema.herokuapp.com/api-docs/index.html)
