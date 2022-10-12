@@ -43,10 +43,10 @@ gem 'pundit', '~> 2.2'
 
 # Use Sass to process CSS
 # gem 'sassc-rails'
+gem 'active_model_serializers', '~> 0.10.13'
 gem 'cssbundling-rails'
 gem 'jsbundling-rails'
 gem 'redis', '~> 4.8'
-gem 'active_model_serializers', '~> 0.10.13'
 gem 'sidekiq', '~> 6.5'
 gem 'sidekiq-cron', '~> 1.7'
 gem 'strong_migrations', '~> 1.3.0'
