@@ -3,8 +3,6 @@ module Api
     class SeancesController < ApiController
       def show
         render json: seance, serializer: ::Api::V1::SeanceSerializer, status: :ok
-      rescue ActiveRecord::RecordNotFound
-        render_not_found
       end
 
       private
