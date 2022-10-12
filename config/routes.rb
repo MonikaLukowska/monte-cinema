@@ -4,6 +4,8 @@ require 'sidekiq/web'
 require 'sidekiq/cron/web'
 
 Rails.application.routes.draw do
+  mount Rswag::Ui::Engine => '/api-docs'
+  mount Rswag::Api::Engine => '/api-docs'
   mount Sidekiq::Web => '/sidekiq'
   
   devise_for :users
@@ -21,4 +23,15 @@ Rails.application.routes.draw do
   end
  
   root to: 'seances#index'
+
+  namespace 'api' do
+    namespace 'v1' do
+      resources :movies, only: [:index] do
+        collection do
+          get 'find_by_date', as: 'screening_on'
+        end
+      end
+      resources :seances, only: [:show]
+    end
+  end
 end
