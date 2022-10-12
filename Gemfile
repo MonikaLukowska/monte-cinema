@@ -45,8 +45,11 @@ gem 'pundit', '~> 2.2'
 # gem 'sassc-rails'
 gem 'active_model_serializers', '~> 0.10.13'
 gem 'cssbundling-rails'
+gem 'faker'
 gem 'jsbundling-rails'
 gem 'redis', '~> 4.8'
+gem 'rswag-api', '~> 2.6'
+gem 'rswag-ui', '~> 2.6'
 gem 'sidekiq', '~> 6.5'
 gem 'sidekiq-cron', '~> 1.7'
 gem 'strong_migrations', '~> 1.3.0'
@@ -57,7 +60,6 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
-  gem 'faker'
   gem 'rspec-rails'
   gem 'rswag', '~> 2.6'
   gem 'rubocop', '1.36.0'
@@ -81,6 +83,7 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem 'capybara'
+  gem 'rswag-specs', '~> 2.6'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 5.0'
   gem 'webdrivers'
