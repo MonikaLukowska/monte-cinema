@@ -16,7 +16,7 @@ module Reservations
         reservation = Reservation.create!(
           user: user,
           seance_id: seance.id,
-          status: Reservation::CONFIRMED,
+          status: Reservation::CREATED,
           tickets: seats.map { |seat| Ticket.new(seat: seat) }
         )
 
